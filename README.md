@@ -36,6 +36,11 @@ add config
         ],
 ```
 
+change default to mns
+
+```php
+    'default' => 'mns'
+```
 
 ## Use
 
