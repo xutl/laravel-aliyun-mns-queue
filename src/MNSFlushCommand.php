@@ -43,7 +43,7 @@ class MNSFlushCommand extends Command
         if (!$queue) {
             $queue = $config['queue'];
         }
-        $client = new Client($config['endpoint'], $config['key'], $config['secret']);
+        $client = new Client($this->getEndpoint($config), $config['access_id'], $config['access_key'], $config['security_token']);
         $queue = $client->getQueueRef($queue);
         $hasMessage = true;
         while ($hasMessage) {
@@ -86,6 +86,16 @@ class MNSFlushCommand extends Command
         return [
             ['queue', InputArgument::OPTIONAL, 'The queue name'],
         ];
+    }
+
+    /**
+     * @param array $config
+     *
+     * @return mixed
+     */
+    protected function getEndpoint(array $config)
+    {
+        return str_replace('(s)', 's', $config['endpoint']);
     }
 
     /**
